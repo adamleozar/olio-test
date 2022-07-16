@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Articles", type: :request do
-  let!(:current_article) { FactoryBot.create :current_article }
   let!(:non_current_article) { FactoryBot.create :non_current_article }
+  let(:file) { File.read('spec/mock_data/articles.json') }
 
   before :each do
+    allow_any_instance_of(ArticleDataService).to receive(:file).and_return(file)
     get "/api/v1/articles"
   end
 
@@ -15,8 +16,8 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     it "only returns the current article" do
       json_response = JSON.parse(response.body)
-      expect(json_response.count).to eq(1)
-      expect(json_response.first["current"]).to eq(true)
+      expect(Article.all.count).to eq(26)
+      expect(json_response.count).to eq(25)
     end
   end
 end
