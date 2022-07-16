@@ -2,9 +2,10 @@
 import "@hotwired/turbo-rails";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import Home from './components/Home/Home';
 
 const App = () => {
-  return <div>App is working</div>;
+  return <Home />;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
