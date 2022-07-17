@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import { ArticleBlock, ArticleTextBlock } from './styles';
 
 export type ArticlesDataType = {
@@ -24,14 +26,24 @@ export default function Home() {
   const [data, setData] = useState<ArticlesDataType | undefined>(undefined);
   const [isLoading, setLoading] = useState(false);
 
+  const loadingSpinner = <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+    <CircularProgress />
+  </Box>
+
   useEffect(() => {
-    setLoading(true);
-    fetch('api/v1/articles')
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('api/v1/articles');
+        if (!response.ok) throw Error(response.statusText);
+        const data = await response.json();
         setData(data);
-        setLoading(false);
-      });
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false);      
+    }
+    fetchData();
   }, []);
 
   const onLikeButtonClick = (id: string) => {
@@ -41,11 +53,36 @@ export default function Home() {
     const updatedData = [...data];
     updatedData.splice(index, 1, updatedArticle);
     setData(updatedData);
+    updateArticle(article.id, !article.liked);
+  }
+
+  const updateArticle = async (id: string, liked: boolean) => {
+    try {
+      const response = await fetch(
+        `/api/v1/articles/${id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            article: {
+              id: id,
+              liked: liked
+            }
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      if (!response.ok) throw Error(response.statusText);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
     <Container maxWidth="lg">
-      {data?.map((dataPoint) => (
+      {
+        isLoading ? loadingSpinner : data?.map((dataPoint) => (
             <ArticleBlock key={dataPoint.id}>
                 <ArticleTextBlock >
                   <Typography variant="h5" sx={{color: "#009187"}}>
