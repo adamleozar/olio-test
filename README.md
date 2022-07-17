@@ -11,7 +11,9 @@ This app was built as a technical test for Olio.
 
 ## Initial setup
 
-The first step is to clone this repository. Open a new terminal window and run:
+The first step is to clone this repository.
+
+Open a new terminal window and run:
 
 ```
 git clone git@github.com:adamleozar/olio-test.git
@@ -29,7 +31,7 @@ There are bunch of dependencies that need to be installed before you can run the
 
 #### RVM and Ruby
 
-There are many different versions of the Ruby programming language and each new rails project will usually have a dependency on a different version of Ruby. We should therefore use a ruby version manager which help install and manage all the different ruby versions needed for each project. There are two main ruby version managers namely RVM and rbenv. I personally prefer RVM and therefore I will run through the setup for for RVM and the installation of the Ruby version needed for this project.
+There are many different versions of the ruby programming language and each new rails project will usually have a dependency on a different version of ruby. We should therefore use a ruby version manager which help install and manage all the different ruby versions needed for each project. There are two main ruby version managers namely RVM and rbenv. I personally prefer RVM and therefore I will run through the setup for for RVM and the installation of the ruby version needed for this project.
 
 From the terminal window you are in run:
 
@@ -55,7 +57,7 @@ You can validate the installation by running:
 rvm -v
 ```
 
-You should see the rvm version details as an output if rvm installed properly.
+You should see the rvm version details as an output if rvm is installed properly.
 
 This project has a dependency on Ruby 3.0.2. Therefore in order to install and use the correct version, run the following from the terminal window from inside the project directory:
 
@@ -80,7 +82,7 @@ This will install all the ruby gems that are listed in the Gemfile of this proje
 
 #### Database
 
-The database used in this project is postgresql. You will need install postgresql to get the app running. We will use homebrew to install run the postgresql package. Homebrew is a package manager for MacOS and Linux. To install homebrew run:
+The database used in this project is postgresql. You will need install postgresql to get the app running. We will use homebrew to install and run the postgresql package. Homebrew is a package manager for MacOS and Linux. To install homebrew run:
 
 for bash
 
@@ -144,3 +146,5 @@ To run the test suite run:
 ```
 rspec
 ```
+
+Please get in touch with me if you have any issues getting everything installed and running.
